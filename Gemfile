@@ -18,8 +18,12 @@ gem 'jbuilder', '~> 2.0'
 gem 'grape'
 
 gem 'grape-entity'
-
-
+# 分页
+gem 'kaminari'
+# Redis
+gem 'redis'
+# YAML
+gem 'settingslogic'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

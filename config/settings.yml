@@ -1,0 +1,10 @@
+development: &development
+  redis:
+    host: "127.0.0.1"
+    port: 6379
+    db: 6
+    access_token_expire: 3600
+  timestemp:
+    timestemp_range: 10
+production:
+    <<: *development
