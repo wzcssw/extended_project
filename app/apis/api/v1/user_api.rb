@@ -35,7 +35,7 @@ module API
           present :access_token, access_token
           present :user, user
         else
-          error!({success: false,info: '用户不存在'}, 401)
+          error!({success: false,info: '用户不存在'}, 200)
         end
       end
 
@@ -47,7 +47,7 @@ module API
         if user
           present :user, user
         else
-          error!({success: false,info: '用户不存在'}, 401)
+          error!({success: false,info: '用户不存在'}, 200)
         end
       end
      end
