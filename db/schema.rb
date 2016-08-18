@@ -11,13 +11,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728070620) do
+ActiveRecord::Schema.define(version: 20160818090524) do
 
   create_table "apptokens", force: :cascade do |t|
     t.string   "token",       limit: 255
     t.string   "description", limit: 255
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "privileges", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "remark",     limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "role_privileges", force: :cascade do |t|
+    t.integer  "privilege_id", limit: 4
+    t.integer  "role_id",      limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  add_index "role_privileges", ["privilege_id"], name: "index_role_privileges_on_privilege_id", using: :btree
+  add_index "role_privileges", ["role_id"], name: "index_role_privileges_on_role_id", using: :btree
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.string   "remark",     limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -29,6 +53,9 @@ ActiveRecord::Schema.define(version: 20160728070620) do
     t.string   "description", limit: 255
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "role_id",     limit: 4
   end
 
+  add_foreign_key "role_privileges", "privileges"
+  add_foreign_key "role_privileges", "roles"
 end

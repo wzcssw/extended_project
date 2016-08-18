@@ -37,7 +37,7 @@ module API
         if user
           access_token = AccessToken.create({id: user.id}) if user
           present :access_token, access_token
-          present :user, user
+          present :user, user ,with: UserEntity
         else
           error!({success: false,info: '用户不存在'}, 200)
         end
@@ -49,7 +49,7 @@ module API
         uid = AccessToken.find(access_token)['id']
         user = User.find(uid)
         if user
-          present :user, user
+          present :user, user ,with: UserEntity
         else
           error!({success: false,info: '用户不存在'}, 200)
         end
