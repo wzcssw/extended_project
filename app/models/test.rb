@@ -11,5 +11,7 @@ class Test
     puts "[GET]"
     puts "http://localhost:3000/api/v1/users/info?app_token=#{app_token}&access_token=#{access_token}&timestemp=#{timestemp}&sign=#{sign}"
     puts ""
+    puts "[DELETE]"
+    puts "http://localhost:3000/api/v1/users/delete?app_token=#{app_token}&access_token=#{access_token}&timestemp=#{timestemp}&sign=#{sign}&id="
   end
 end

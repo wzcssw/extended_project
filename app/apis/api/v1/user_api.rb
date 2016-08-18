@@ -7,12 +7,16 @@ module API
       params do
         optional :page, type: Integer
         optional :limit, type: Integer
+        optional :q, type: String
       end
       get :list do
         page = params[:page] || 1
         limit = params[:limit] || 20
+        q = params[:q] || ''
 
         @users =  User.page(page).per(limit)
+        @users =  User.where(name: q).page(page).per(limit) if q.present?
+
         present :users, @users ,with: UserEntity
         present :total_count, @users.total_count
         present :prev_page, @users.prev_page
@@ -50,6 +54,29 @@ module API
           error!({success: false,info: '用户不存在'}, 200)
         end
       end
+
+      desc "删除用户信息"
+      delete :delete do
+        id = params[:id]
+        user = User.find(id)
+        if user
+          user.delete
+        else
+          error!({success: false,info: '用户不存在'}, 200)
+        end
+      end
+
+      desc "更新用户信息"
+      put :update do
+        user_param = JSON.parse params[:user]
+        user = User.find(user_param['id'])
+        if user
+          user.update_attributes user_param
+        else
+          error!({success: false,info: '用户不存在'}, 200)
+        end
+      end
+
      end
   end
 end
