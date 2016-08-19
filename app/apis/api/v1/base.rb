@@ -9,6 +9,7 @@ module API
 
       # 挂载API
       mount V1::UserApi
+      mount V1::RolePrivilegeApi
     end
   end
 end
